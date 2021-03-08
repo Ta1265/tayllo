@@ -1,80 +1,83 @@
-import mongoose, { Document, Schema, model, Model } from 'mongoose';
+// import mongoose, {
+//   Document, Schema, model, Model,
+// } from 'mongoose';
+// import { composeWithMongoose } from 'graphql-compose-mongoose';
 
-const url = 'mongodb://localhost:27017/tayllo';
+// // const url = 'mongodb://localhost:27017/tayllo';
 
-mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
-const db = mongoose.connection
+// // const db = mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
 
-db.once('open', () => {
-  console.log('Database connected:', url);
-});
+// // db.once('open', () => {
+// //   console.log('Database connected:', url);
+// // });
 
-db.on('error', (err: Error) => {
-  console.error('connection error:', err);
-});
+// // db.on('error', (err: Error) => {
+// //   console.error('connection error:', err);
+// // });
 
+// interface IAccount extends Document {
+//   _id: number;
+//   userName: string;
+//   password: string;
+//   decks: [_id: number];
+// }
 
-interface IAccount extends Document {
-  _id: Number;
-  userName: String;
-  password: String;
-  deck: [_id: Number];
-}
+// interface IDeck extends Document {
+//   _id: number;
+//   deckTitle: string;
+//   categories:[{
+//     categoryTitle: string,
+//     cards: [_id: number],
+//   }],
+// }
 
-interface IDeck extends Document {
-  _id: Number;
-  deckTitle: String;
-  categories:[{
-    categoryTitle: String,
-    cards: [_id: Number],
-  }],
-}
+// interface ICard extends Document {
+//   _id: number;
+//   cardTitle: string;
+//   creationDate: mongoose.Date;
+//   content: string;
+// }
 
-interface ICard extends Document {
-  _id: Number;
-  cardTitle: String;
-  creationDate: mongoose.Date;
-  content: String;
-}
+// const AccountSchema: Schema = new Schema({
+//   _id: { type: Number, require: true },
+//   userName: String,
+//   password: String,
+//   decks: [{
+//     type: Number,
+//     ref: 'Deck',
+//   }],
+// });
 
-const AccountSchema: Schema = new Schema({
-  _id: { type: Number, require: true },
-  userName: String,
-  password: String,
-  deck_access: [{
-    type: Number,
-    ref: 'Deck',
-  }],
-});
+// const DeckSchema = new Schema({
+//   _id: { type: Number, require: true },
+//   deckTitle: String,
+//   categories: [{
+//     categoryTitle: String,
+//     cards: [{
+//       type: Number,
+//       ref: 'Card',
+//     }],
+//   }],
+// });
 
-const DeckSchema = new Schema({
-  _id: { type: Number, require: true },
-  deckTitle: String,
-  categories: [{
-    categoryTitle: String,
-    cards: [{
-      type: Number,
-      ref: 'Card',
-    }],
-  }],
-});
+// const CardSchema = new Schema({
+//   _id: { type: Number, require: true },
+//   cardTitle: String,
+//   creationDate: Date,
+//   content: String,
+// });
 
-const CardSchema = new Schema({
-  _id: { type: Number, require: true },
-  cardTitle: String,
-  creationDate: Date,
-  content: String,
-});
+// export const Account: Model<IAccount> = model('Account', AccountSchema);
+// export const AccountTC = composeWithMongoose(model('Account', AccountSchema));
 
+// export const Deck: Model<IDeck> = model('Deck', DeckSchema);
+// export const DeckTC = composeWithMongoose(model('Deck', DeckSchema));
 
-const Account: Model<IAccount> = model('Account', AccountSchema);
-const Deck: Model<IDeck> = model('Deck', DeckSchema);
-const Card: Model<ICard> = model('Card', CardSchema);
+// export const Card: Model<ICard> = model('Card', CardSchema);
+// export const CardTC = composeWithMongoose(model('Card', CardSchema));
 
-const testAccount = new Account({
-  _id: new mongoose.Types.ObjectId(),
-  userName: 'test1',
-  password: 'test1pass',
-});
-
-export { Account, Deck, Card };
+// // const testAccount = new Account({
+// //   _id: new mongoose.Types.ObjectId(),
+// //   userName: 'test1',
+// //   password: 'test1pass',
+// // });

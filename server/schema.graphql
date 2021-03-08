@@ -1,0 +1,27 @@
+type User {
+  id: ID!
+  userName: String
+  password: String
+  decks: [Deck]
+}
+
+type Deck {
+  deckID: ID!
+  deckTitle: String
+  categories: [Category]
+}
+
+type Category {
+  categoryTitle: String
+  cards: [Card]
+}
+
+type Card {
+  cardTitle: String
+  creationDate: String
+  content: String
+}
+
+type Query {
+  userData: User
+}

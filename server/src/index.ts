@@ -1,29 +1,27 @@
 import 'dotenv';
-import { ApolloServer } from 'apollo-server';
-import typeDefs from './schema';
-import {Account, Deck, Card} from './mongoose_schema';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import getConnection from './db/index';
+import typeDefs from './graphql/schema';
+import resolvers from './graphql/resolvers';
 
-async function testDatabase() {
-  const testAccount = await Account.create({
-    _id: 3,
-    userName: 'testaccount',
-    passWord: 'testpassword',
-    desks: [],
-  });
+// context passed to each query/ mutation - the database
+const context = async () => {
+  const con = await getConnection();
+  return { con };
+};
 
-  const account = await Account.findOne({_id: 1});
-  console.log(account);
-}
-
-
-const server = new ApolloServer({ typeDefs });
-
-server.listen().then(() => {
-  console.log(`
-    Server is running!
-    Listening on port 4000
-  `);
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context,
+  playground: true,
+  introspection: true,
 });
 
-testDatabase();
+const app = express();
+apolloServer.applyMiddleware({ app });
 
+app.listen({ port: 3000 }, () => {
+  console.log(`server listening at http://localhost:4000${apolloServer.graphqlPath}`);
+});

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
     ],
     "allowJs": true,
     "module": "commonjs", // Compatible with both Node.js and browser
@@ -11,9 +11,11 @@
     "strict": true, // is an option that enables strict type-checking options
     "target": "es5", // allows us to specify the target JavaScript version that compiler will output
     "jsx": "react",
+    "resolveJsonModule": true,
   },
   "include": [
-    "./src/*.ts"
+    "./src/*.ts",
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
