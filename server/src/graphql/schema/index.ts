@@ -1,6 +1,7 @@
-import { gql } from 'apollo-server-micro';
-
+import { gql } from 'apollo-server';
 import cardSchema from './card';
+import categorySchema from './category';
+import deckSchema from './deck';
 
 const linkSchema = gql`
   type Query {
@@ -16,4 +17,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, cardSchema];
+export default [linkSchema, cardSchema, categorySchema, deckSchema];

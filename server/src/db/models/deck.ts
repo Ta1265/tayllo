@@ -1,26 +1,18 @@
+import { ICategory } from './category';
 import {
-  Document, Schema, model, Model,
+  Document, Schema, model, Model, Connection
 } from 'mongoose';
 
 export interface IDeck extends Document {
   _id: number;
   deckTitle: string;
-  categories:[{
-    categoryTitle: string,
-    cards: [_id: number],
-  }],
+  categories: [ICategory];
 }
 
 const DeckSchema = new Schema({
-  _id: { type: Number, require: true },
   deckTitle: String,
-  categories: [{
-    categoryTitle: String,
-    cards: [{
-      type: Number,
-      ref: 'Card',
-    }],
-  }],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'category'}]
 });
 
-export const Deck: Model<IDeck> = model('Deck', DeckSchema);
+const Deck = (con: Connection): any => (con.model('deck', DeckSchema));
+export default Deck;

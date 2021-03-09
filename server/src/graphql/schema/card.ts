@@ -1,8 +1,6 @@
-import { gql } from 'apollo-server-micro';
+import { gql } from 'apollo-server';
 
-// extend keyword used to connect query and mutation to other schemas
 export default gql`
-
   type Card {
     _id: ID!
     cardTitle: String!
@@ -19,5 +17,4 @@ export default gql`
     saveCard(cardTitle: String!, content: String): Card!
     deleteCard(_id: ID!): Card
   }
-
 `;

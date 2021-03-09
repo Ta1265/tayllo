@@ -14,6 +14,6 @@ const CardSchema = new Schema({
   content: String,
 });
 
-const Card = (con: Connection): any => con.model('card', CardSchema);
+const Card = (con: Connection): any => (con.model('card', CardSchema));
 
 export default Card;

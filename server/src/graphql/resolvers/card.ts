@@ -1,5 +1,5 @@
-import mongoose, { Model, Connection } from 'mongoose';
-import { ApolloError } from 'apollo-server-micro';
+import { Model, Connection } from 'mongoose';
+import { ApolloError } from 'apollo-server';
 import CardModel, { ICard } from '../../db/models/card';
 
 export default {
@@ -23,7 +23,7 @@ export default {
     getCard: async (
       _parent: any,
       { _id }: { _id: ICard['_id'] },
-      { con }: { con: mongoose.Connection },
+      { con }: { con: Connection },
     ): Promise<ICard> => {
       const CardDB: Model<ICard> = CardModel(con);
 
@@ -41,18 +41,18 @@ export default {
   Mutation: {
     saveCard: async (
       _parent: any,
-      { cardTitle, content }: { cardTitle: ICard['cardTitle']; content: ICard['content'] },
+      { cardTitle, content }: { cardTitle: ICard['cardTitle'], content: ICard['content'] },
       { con }: { con: Connection },
     ): Promise<ICard> => {
       const CardDB: Model<ICard> = CardModel(con);
       const dateTime = new Date().toLocaleString();
-      console.log(typeof dateTime, dateTime);
       try {
         const Card = await CardDB.create({
           cardTitle,
           content,
           creationDate: dateTime,
         });
+        console.log('card created', Card);
         return Card;
       } catch (error) {
         console.error('error saving card: ', error);
@@ -63,7 +63,7 @@ export default {
     deleteCard: async (
       _parent: any,
       { _id }: { _id: ICard['_id'] },
-      { con }: { con: mongoose.Connection },
+      { con }: { con: Connection },
     ): Promise<ICard> => {
       const CardDB: Model<ICard> = CardModel(con);
       try {
